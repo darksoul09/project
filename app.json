@@ -1,8 +1,8 @@
 {
-    "name": "Heroku",
+    "name": "Heroku Project",
     "description": "project.",
     "keywords": [
-        "VNC",
+        "VNC"
     ],
     "env": {
       "VNC_TITLE" : {
