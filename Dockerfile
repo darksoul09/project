@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 as ubuntu-base
+FROM ubuntu:18.04 as ubuntu-base
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -16,6 +16,7 @@ RUN apt-get -qqy update \
 	git \
 	wget \
 	ffmpeg \
+	npm \
         xvfb x11vnc novnc websockify \
     && apt-get autoclean \
     && apt-get autoremove \
@@ -45,23 +46,29 @@ CMD ["/opt/bin/entry_point.sh"]
 FROM ubuntu-base as ubuntu-utilities
 
 RUN apt-get -qqy update \
-    && apt-get -qqy --no-install-recommends install \
-        firefox htop terminator gnupg2 software-properties-common \
     && apt update \
+#obs
     && apt-add-repository ppa:obsproject/obs-studio \
     && apt update \
     && apt install -qqy --no-install-recommends obs-studio \
     && apt update \
+#vlc
     && apt install -qqy --no-install-recommends vlc \
     && apt update \
+#ocamlfuse
     && apt install -qqy --no-install-recommends flatpak \
     && apt-add-repository ppa:alessandro-strada/ppa \
     && apt update \
     && apt install -qqy --no-install-recommends google-drive-ocamlfuse \
+    && apt update \
+#Brave
     && curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|tee /etc/apt/sources.list.d/brave-browser-release.list \
     && apt update \
-    && apt-get install brave-browser -y \
+    && apt install -qqy --no-install-recommends brave-browser \
+#chrome 
+    && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && apt install -qqy --no-install-recommends ./google-chrome-stable_current_amd64.deb \
     && apt update \
     && apt install unzip \
     && apt-get autoclean \
