@@ -16,7 +16,6 @@ RUN apt-get -qqy update \
 	git \
 	wget \
 	ffmpeg \
-	npm \
         xvfb x11vnc novnc websockify \
     && apt-get autoclean \
     && apt-get autoremove \
@@ -56,17 +55,6 @@ RUN apt-get -qqy update \
 #vlc
     && apt install -qqy --no-install-recommends vlc \
     && apt update \
-#ocamlfuse
-    && apt install -qqy --no-install-recommends flatpak \
-    && apt-add-repository ppa:alessandro-strada/ppa \
-    && apt update \
-    && apt install -qqy --no-install-recommends google-drive-ocamlfuse \
-    && apt update \
-#Brave
-    && curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg \
-    && echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|tee /etc/apt/sources.list.d/brave-browser-release.list \
-    && apt update \
-    && apt install -qqy --no-install-recommends brave-browser \
 #chrome 
     && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     && apt install -qqy --no-install-recommends ./google-chrome-stable_current_amd64.deb \
