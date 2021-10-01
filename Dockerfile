@@ -46,7 +46,8 @@ CMD ["/opt/bin/entry_point.sh"]
 FROM ubuntu-base as ubuntu-utilities
 
 RUN apt-get -qqy update \
-    && apt update \
+    && apt-get -qqy --no-install-recommends install \
+        firefox htop terminator gnupg2 software-properties-common \
 #obs
     && apt-add-repository ppa:obsproject/obs-studio \
     && apt update \
