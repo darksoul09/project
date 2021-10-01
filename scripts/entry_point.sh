@@ -6,19 +6,6 @@
 #==============================================
 
 mkdir -p /Desktop
-cat << EOF >  /Desktop/Chromium.desktop
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Google Chrome
-Comment=Access the Internet
-Exec=/usr/bin/google-chrome --no-sandbox --disable-dev-shm-usage
-Icon=google-chrome
-Path=
-Terminal=false
-StartupNotify=true
-EOF
-chmod +x /Desktop/Chromium.desktop
 
 if ! whoami &> /dev/null; then
   if [ -w /etc/passwd ]; then
