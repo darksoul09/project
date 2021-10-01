@@ -13,9 +13,9 @@ RUN apt-get -qqy update \
         sudo \
         supervisor \
     	curl \
-	    git \
-	    wget \
-	    ffmpeg \
+	git \
+	wget \
+	ffmpeg \
         xvfb x11vnc novnc websockify \
     && apt-get autoclean \
     && apt-get autoremove \
@@ -58,7 +58,7 @@ RUN apt-get -qqy update \
     && apt-add-repository ppa:alessandro-strada/ppa \
     && apt update \
     && apt install -qqy --no-install-recommends google-drive-ocamlfuse \
-    && apt install -qqy --no-install-recommends qutebrowser \
+    && apt install -qqy --no-install-recommends chromium-browser \
     && apt update \
     && apt install unzip \
     && apt-get autoclean \
