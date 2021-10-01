@@ -1,12 +1,21 @@
 FROM ubuntu:20.04 as ubuntu-base
 
+ARG DEBIAN_FRONTEND=noninteractive
 ENV DEBIAN_FRONTEND=noninteractive \
-    DEBCONF_NONINTERACTIVE_SEEN=true
-
+#VNC Server Password
+	VNC_PASS="samplepass" \
+#VNC Server Title(w/o spaces)
+	VNC_TITLE="Ubuntu_Desktop" \
+#VNC Resolution(720p is preferable)
+	VNC_RESOLUTION="1280x720"
 RUN apt-get -qqy update \
     && apt-get -qqy --no-install-recommends install \
         sudo \
         supervisor \
+    	curl \
+	    git \
+	    wget \
+	    ffmpeg \
         xvfb x11vnc novnc websockify \
     && apt-get autoclean \
     && apt-get autoremove \
@@ -38,14 +47,19 @@ FROM ubuntu-base as ubuntu-utilities
 RUN apt-get -qqy update \
     && apt-get -qqy --no-install-recommends install \
         firefox htop terminator gnupg2 software-properties-common \
-    && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && apt install -qqy --no-install-recommends ./google-chrome-stable_current_amd64.deb \
-    && apt-add-repository ppa:remmina-ppa-team/remmina-next \
     && apt update \
-    && apt install -qqy --no-install-recommends remmina remmina-plugin-rdp remmina-plugin-secret \
     && apt-add-repository ppa:obsproject/obs-studio \
     && apt update \
     && apt install -qqy --no-install-recommends obs-studio \
+    && apt update \
+    && apt install -qqy --no-install-recommends vlc \
+    && apt update \
+    && apt install -qqy --no-install-recommends flatpak \
+    && apt-add-repository ppa:alessandro-strada/ppa \
+    && apt update \
+    && apt install -qqy --no-install-recommends google-drive-ocamlfuse \
+    && apt install -qqy --no-install-recommends qutebrowser \
+    && apt update \
     && apt install unzip \
     && apt-get autoclean \
     && apt-get autoremove \
